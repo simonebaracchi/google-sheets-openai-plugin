@@ -1,0 +1,65 @@
+/*
+Google Apps Script for enabling OpenAI-powered function formulas
+
+examples
+=GPT("Give me a cupcake recipe")
+=GPT_LIST("Give me 3 business ideas")
+*/
+
+function GPT(prompt) {
+  return _invoke(prompt, "Just give the answer.");
+}
+
+function GPT_LIST(prompt) {
+  var ret = _invoke(prompt, "Give the answer as a structured JSON list. Each item of the list must be a plain string.");
+  Logger.log(ret);
+  l = JSON.parse(ret);
+  return l;
+}
+
+
+function _invoke(prompt, system) {
+  if(!prompt) {
+    throw new Error("No prompt given!");
+  }
+
+  // Replace YOUR_API_KEY with your actual OpenAI API key
+  var apiKey = 'YOUR_API_KEY';
+  var apiURL = 'https://api.openai.com/v1/chat/completions';
+  
+  var payload = JSON.stringify({
+    "model": "gpt-4o-mini",
+    "messages": [
+      {"role": "system", "content": system + " No intro, no explanation, no markdown unless explicitly requested. Be concise."},
+      {"role": "user", "content": prompt}
+      ],
+  });
+  /*
+    "temperature": 0.7,
+    
+    "top_p": 1,
+    "frequency_penalty": 0,
+    "presence_penalty": 0
+  });
+  */
+  
+  var options = {
+    "method": "post",
+    "contentType": "application/json",
+    "payload": payload,
+    "headers": {
+      "Authorization": "Bearer " + apiKey
+    },
+    "muteHttpExceptions": true
+  };
+  
+  try {
+    var response = UrlFetchApp.fetch(apiURL, options);
+    var json = JSON.parse(response.getContentText());
+    var resultText = json.choices[0].message.content.trim();
+    
+    return resultText;
+  } catch (e) {
+    Logger.log(e.toString());
+  }
+}
