@@ -33,4 +33,6 @@ API usage is charged on a consumption basis, which means the bill depends on:
   - the size of the query (roughly 1€ per million words when using the "default" o4-mini model)
   - the amount of queries (note that some spreadsheet operations, such as reordering rows, may trigger *a full reload of all cells*)
 
-tl;dr with great power comes great responsibility
+Also, if you share your spreadsheet with others, they will have access to your API key, which is definitely not something you want to give away.
+
+tl;dr with great power comes great responsibility.
