@@ -1,5 +1,10 @@
 # google-sheets-openai-plugin
-Apps Script for Google Sheets to include function formulas for OpenAI's ChatGPT
+
+ChatGPT plugin for Google Sheets. 
+
+Adds AI functionality via Apps Script. Adds new formula functions with AI functionality: =GPT(), =GPT_LIST()
+
+Needs an OpenAI API key.
 
 # Example
 
@@ -9,13 +14,14 @@ Apps Script for Google Sheets to include function formulas for OpenAI's ChatGPT
 
 # Prerequirements
 
-You must provide your own OpenAI API key.
+You must provide your own OpenAI API key (OpenAI will bill you on a consumption basis)
 
-May require to enable billing for Google Cloud project.
+May require to enable billing for Google Cloud project (which should anyway be within a free usage tier).
 
 # Installation
 
   - Create Google Sheets document
   - Click on "extensions", "Apps Scripts"
   - Copy-paste the contents of script. Replace "YOUR_API_KEY" with actual API key
-  - save
+  - Save
+  - You can try it by placing the formula =GPT("Hello, world!") in a spreadsheet cell
