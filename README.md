@@ -25,3 +25,12 @@ May require to enable billing for Google Cloud project (which should anyway be w
   - Copy-paste the contents of script. Replace "YOUR_API_KEY" with actual API key
   - Save
   - You can try it by placing the formula =GPT("Hello, world!") in a spreadsheet cell
+
+# Warnings ⚠
+
+API usage is charged on a consumption basis, which means the bill depends on:
+
+  - the size of the query (roughly 1€ per million words when using the "default" o4-mini model)
+  - the amount of queries (note that some spreadsheet operations, such as reordering rows, may trigger *a full reload of all cells*)
+
+tl;dr with great power comes great responsibility
