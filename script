@@ -1,4 +1,5 @@
 /*
+https://github.com/simonebaracchi/google-sheets-openai-plugin
 Google Apps Script for enabling OpenAI-powered function formulas
 
 examples
@@ -6,13 +7,15 @@ examples
 =GPT_LIST("Give me 3 business ideas")
 */
 
+// Replace YOUR_API_KEY with your actual OpenAI API key
+var apiKey = 'YOUR_API_KEY';
+
 function GPT(prompt) {
   return _invoke(prompt, "Just give the answer.");
 }
 
 function GPT_LIST(prompt) {
   var ret = _invoke(prompt, "Give the answer as a structured JSON list. Each item of the list must be a plain string.");
-  Logger.log(ret);
   l = JSON.parse(ret);
   return l;
 }
@@ -23,8 +26,6 @@ function _invoke(prompt, system) {
     throw new Error("No prompt given!");
   }
 
-  // Replace YOUR_API_KEY with your actual OpenAI API key
-  var apiKey = 'YOUR_API_KEY';
   var apiURL = 'https://api.openai.com/v1/chat/completions';
   
   var payload = JSON.stringify({
@@ -34,14 +35,6 @@ function _invoke(prompt, system) {
       {"role": "user", "content": prompt}
       ],
   });
-  /*
-    "temperature": 0.7,
-    
-    "top_p": 1,
-    "frequency_penalty": 0,
-    "presence_penalty": 0
-  });
-  */
   
   var options = {
     "method": "post",
