@@ -15,7 +15,7 @@ function GPT(prompt) {
 }
 
 function GPT_LIST(prompt) {
-  var ret = _invoke(prompt, "Give the answer as a structured JSON list. Each item of the list must be a plain string.");
+  var ret = _invoke(prompt, "Give the answer as a flat JSON list. Each item of the list must be a plain string.");
   l = JSON.parse(ret);
   return l;
 }
