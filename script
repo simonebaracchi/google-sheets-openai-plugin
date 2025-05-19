@@ -5,31 +5,65 @@ Google Apps Script for enabling OpenAI-powered function formulas
 examples
 =GPT("Give me a cupcake recipe")
 =GPT_LIST("Give me 3 business ideas")
+=GPT_MATRIX("Give me a carbonara recipe with this format for each step: [step description] [time required] [instruments needed]")
 */
 
 // Replace YOUR_API_KEY with your actual OpenAI API key
-var apiKey = 'YOUR_API_KEY';
+var apiKey = 'YOUR-API-KEY';
+var global_disable = false;
 
-function GPT(prompt) {
-  return _invoke(prompt, "Just give the answer.");
+/**
+ * Given the prompt, asks a question to the model.
+ *
+ * @param {string} prompt The question to ask.
+ * @param {string=} model (Optional) The model to use; defaults to "gpt-4o-mini".
+ * @return {string} The LLM answer, as a plain string.
+ * @customfunction
+ */
+function GPT(prompt, model = "gpt-4o-mini") {
+  return _invoke(prompt, model, "Just give the answer.");
 }
 
-function GPT_LIST(prompt) {
-  var ret = _invoke(prompt, "Give the answer as a flat JSON list. Each item of the list must be a plain string.");
+/**
+ * Given the prompt, asks a question to the model.
+ *
+ * @param {string} prompt The question to ask.
+ * @param {string=} model (Optional) The model to use; defaults to "gpt-4o-mini".
+ * @return {string} The LLM answer, as a list; it will span to below cells.
+ * @customfunction
+ */
+function GPT_LIST(prompt, model = "gpt-4o-mini") {
+  var ret = _invoke(prompt, model, "Give the answer as a flat JSON list. Each item of the list must be a plain string.");
   l = JSON.parse(ret);
   return l;
 }
 
+/**
+ * Given the prompt, asks a question to the model.
+ *
+ * @param {string} prompt The question to ask.
+ * @param {string=} model (Optional) The model to use; defaults to "gpt-4o-mini".
+ * @return {string} The LLM answer, as a table; it will span to nearby cells horizontally and vertically.
+ * @customfunction
+ */
+function GPT_MATRIX(prompt, model = "gpt-4o-mini") {
+  var ret = _invoke(prompt, model, "Give the answer as a JSON list of lists. Each item of the list must be a sublist, with each element of the sublist being a plain string. Each sublist should have the same number of elements.");
+  l = JSON.parse(ret);
+  return l;
+}
 
-function _invoke(prompt, system) {
+function _invoke(prompt, model, system) {
   if(!prompt) {
     throw new Error("No prompt given!");
+  }
+  if(global_disable) {
+    throw new Error("Disabled");
   }
 
   var apiURL = 'https://api.openai.com/v1/chat/completions';
   
   var payload = JSON.stringify({
-    "model": "gpt-4o-mini",
+    "model": model,
     "messages": [
       {"role": "system", "content": system + " No intro, no explanation, no markdown unless explicitly requested. Be concise."},
       {"role": "user", "content": prompt}
@@ -56,3 +90,6 @@ function _invoke(prompt, system) {
     Logger.log(e.toString());
   }
 }
+
+
+
