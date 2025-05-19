@@ -14,7 +14,7 @@ Needs an OpenAI API key.
 
 =GPT_MATRIX("Give me a carbonara recipe with this format for each step: [step description] [time required] [instruments needed]")
 
-Optional - a different LLM model can be specified:
+Optional - a different LLM model can be specified (default is 4o-mini):
 
 =GPT("Give me a cupcake recipe", "gpt-4.1")
 
