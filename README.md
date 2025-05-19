@@ -2,7 +2,7 @@
 
 ChatGPT plugin for Google Sheets. 
 
-Adds AI functionality via Apps Script. Adds new formula functions with AI functionality: =GPT(), =GPT_LIST()
+Adds AI functionality via Apps Script. Adds new formula functions with AI functionality: =GPT(), =GPT_LIST(), =GPT_MATRIX()
 
 Needs an OpenAI API key.
 
@@ -11,6 +11,12 @@ Needs an OpenAI API key.
 =GPT("Give me a cupcake recipe")
 
 =GPT_LIST("Give me 3 business ideas")
+
+=GPT_MATRIX("Give me a carbonara recipe with this format for each step: [step description] [time required] [instruments needed]")
+
+Optional - a different LLM model can be specified:
+
+=GPT("Give me a cupcake recipe", "gpt-4.1")
 
 # Prerequirements
 
