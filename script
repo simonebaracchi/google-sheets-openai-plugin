@@ -73,7 +73,7 @@ function GPT_TRUEFALSE(prompt, model = "gpt-4o-mini") {
  * @customfunction
  */
 function GPT_MATRIX(prompt, model = "gpt-4o-mini") {
-  var ret = _invoke(prompt, model, "Give the answer as a JSON list of lists. Each item of the list must be a sublist, with each element of the sublist being a plain string. Each sublist should have the same number of elements. Example: [[\"one\", \"two\"], [\"three\", \"four\"]]");
+  var ret = _invoke(prompt, model, "Give the answer as a JSON list of lists. Each item of the main list must be a sublist, with each element of the sublist being a plain string. Each sublist should have the same number of strings. In terms of pydantic format it is list[list[str]]. Example: [[\"one\", \"two\"], [\"three\", \"four\"], [\"five\", \"six\"]]");
   try {
     l = JSON.parse(ret);
   } catch (e) {
