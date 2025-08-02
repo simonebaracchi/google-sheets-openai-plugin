@@ -26,18 +26,20 @@ You must provide your own OpenAI API key (OpenAI will bill you on a consumption 
 
 May require to enable billing for Google Cloud project (which should anyway be within a free usage tier).
 
-# Getting started real quick
+# Getting started
 
-Just make a copy of this spreadsheet template: https://docs.google.com/spreadsheets/d/1QCgJ-d8GG1CUrWGRNg4EepN9zIPECTZeTSiHV6JGIo8/edit?usp=sharing
+The real quick way:
 
-Replace the API key in A1 with your actual API key
+  - Make a copy of this spreadsheet template: https://docs.google.com/spreadsheets/d/1QCgJ-d8GG1CUrWGRNg4EepN9zIPECTZeTSiHV6JGIo8/edit?usp=sharing
+  - Replace the API key in A1 with your actual API key
 
-# Installation
+The longer way:
 
   - Create Google Sheets document
   - Click on "extensions", "Apps Scripts"
-  - Copy-paste the contents of script. Replace "YOUR_API_KEY" with actual API key
+  - Copy-paste the contents of script.
   - Save
+  - Create a sheet by the name of "API Key" and place your API key in A1
   - You can try it by placing the formula =GPT("Hello, world!") in a spreadsheet cell
 
 # Warnings ⚠
