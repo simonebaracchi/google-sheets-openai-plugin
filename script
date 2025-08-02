@@ -8,8 +8,7 @@ examples
 =GPT_MATRIX("Give me a carbonara recipe with this format for each step: [step description] [time required] [instruments needed]")
 */
 
-// Replace YOUR_API_KEY with your actual OpenAI API key
-var apiKey = 'YOUR_API_KEY';
+var apiKey = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("API Key!A1").getValue();
 var global_disable = false;
 
 /**
@@ -74,6 +73,7 @@ function GPT_TRUEFALSE(prompt, model = "gpt-4o-mini") {
  */
 function GPT_MATRIX(prompt, model = "gpt-4o-mini") {
   var ret = _invoke(prompt, model, "Give the answer as a JSON list of lists. Each item of the main list must be a sublist, with each element of the sublist being a plain string. Each sublist should have the same number of strings. In terms of pydantic format it is list[list[str]]. Example: [[\"one\", \"two\"], [\"three\", \"four\"], [\"five\", \"six\"]]");
+
   try {
     l = JSON.parse(ret);
   } catch (e) {
@@ -118,6 +118,7 @@ function _invoke(prompt, model, system) {
     return resultText;
   } catch (e) {
     Logger.log(e.toString());
+    throw "There was an error processing the request: " + e.toString();
   }
 }
 
